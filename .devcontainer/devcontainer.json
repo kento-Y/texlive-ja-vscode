@@ -1,0 +1,62 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.112.0/containers/docker-existing-dockerfile
+{
+	"name": "texlive",
+
+	// Sets the run context to one level up instead of the .devcontainer folder.
+	"context": "..",
+
+	// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
+	"dockerFile": "Dockerfile",
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
+		"terminal.integrated.shell.linux": null,
+		"latex-workshop.latex.tools": [
+			{
+			  "name": "Latexmk (LuaLaTeX)",
+			  "command": "latexmk",
+			  "args": [
+				"-f", "-gg", "-pv", "-lualatex", "-synctex=1", "-interaction=nonstopmode", "-file-line-error", "%DOC%"
+			  ]
+			}
+		],
+		"latex-workshop.latex.recipes": [
+			{
+			  "name": "LuaLaTeX",
+			  "tools": [
+				"Latexmk (LuaLaTeX)"
+			  ]
+			}
+		],
+		"latex-workshop.latex.magic.args": [
+		  "-f", "-gg", "-pv", "-synctex=1", "-interaction=nonstopmode", "-file-line-error", "%DOC%"
+		],
+		"latex-workshop.latex.clean.fileTypes": [
+			"*.aux", "*.bbl", "*.blg", "*.idx", "*.ind", "*.lof", "*.lot", "*.out", "*.toc", "*.acn", "*.acr", "*.alg", "*.glg", "*.glo", "*.gls", "*.ist", "*.fls", "*.log", "*.fdb_latexmk", "*.synctex.gz",
+			// for Beamer files
+			"_minted*", "*.nav", "*.snm", "*.vrb",
+		],
+		"latex-workshop.view.pdf.viewer": "tab",
+		"latex-workshop.latex.autoClean.run": "onBuilt",
+		"latex-workshop.latex.autoBuild.run": "never",
+	},
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": ["james-yu.latex-workshop"],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Uncomment the next line to run commands after the container is created - for example installing git.
+	// "postCreateCommand": "apt-get update && apt-get install -y git",
+
+	// Uncomment when using a ptrace-based debugger like C++, Go, and Rust
+	// "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
+
+	// Uncomment to use the Docker CLI from inside the container. See https://aka.ms/vscode-remote/samples/docker-in-docker.
+	"mounts": [ "source=${localWorkspaceFolder},target=/workdir,type=bind" ],
+
+	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
+	// "remoteUser": "vscode"
+}
